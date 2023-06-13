@@ -1,5 +1,5 @@
 let jsonObj, currQuote,currAuthor;
-    
+// TO SET DEFAULT COLORS   
 let colors = [
     '#16a085',
     '#27ae60',
@@ -15,6 +15,7 @@ let colors = [
     '#73A857'
 ];
 
+// TO SET UP INITIAL QUOTE AND THE QUOTE WHEN CLICKING ON NEW QUOTE BUTTON
 $(function() {
     getQuotes();
     $("#new-quote").click(function() {           
@@ -22,7 +23,7 @@ $(function() {
     })
 })
 
-
+// GET QUOTE FUNCTION
 function getQuotes() {
     return $.ajax({
         type: 'GET',
@@ -42,10 +43,12 @@ function getQuotes() {
     })
 }
 
-
+// GET RANDOM COLOR FUNCTION
 function getRandomColor() {
+    // TO GET RANDOM COLOR BASED ON LENGTH OF THE DEFAULT COLORS AVAILABLE
     let colorIdx = Math.floor(Math.random() * colors.length);
     let color = colors[colorIdx];
+    // TO SET THE BACKGROUND AND COLOR OF THE BODY, BUTTON, #NEW QUOTE EQUAL TO THE RANDOM COLOR GENERATED
     $("body").css({
     "background-color": color,
     "color": color
@@ -60,13 +63,18 @@ function getRandomColor() {
 }
 
 function getRandomQuote(jsonObject) {
+    // TO GET RANDOM QUOTE BASED ON LENGTH OF THE QUOTES AVAILABLE IN THE DATABASE
     let quoteIdx = Math.floor(Math.random() * jsonObj.quotes.length);
+    // TO GET THE QUOTE CONTENT AND AUTHOR NAME
     currQuote = jsonObject.quotes[quoteIdx].quote;
     currAuthor = jsonObject.quotes[quoteIdx].author;
+    // TO SET THE #TEXT AND #AUTHOR BASED ON QUOTE CONTENT AND AUTHOR NAME OBTAINED IN THE ABOVE STEP
     $("#text").text(currQuote);
     $("#author").text(currAuthor);
 }
 
+
+// TO SHARE THE QUOTE ON TWITTER AND TUMBLR
 function addShareLink(currQuote, currAuthor) {
     let hmtlTwitter = "https://twitter.com/intent/tweet?hashtags=quotes&text=" + encodeURIComponent('"' + currQuote + '"' + currAuthor);
     $(".twitter").attr("href", hmtlTwitter);
